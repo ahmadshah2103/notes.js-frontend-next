@@ -1,4 +1,4 @@
-import { Provider } from "react-redux";
+import ClientRoot from './ClientRoot';
 
 export const metadata = {
     title: "Notes.js",
@@ -8,9 +8,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <Provider store={store}>
-                <body>{children}</body>
-            </Provider>
+            <body>
+                <ClientRoot>{children}</ClientRoot>
+            </body>
         </html>
     );
 }
