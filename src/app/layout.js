@@ -1,4 +1,10 @@
-import { Provider } from "react-redux";
+import ClientRoot from './ClientRoot';
+import dynamic from 'next/dynamic';
+
+const ClientSideGoogleOAuthProvider = dynamic(
+  () => import('../components/auth/ClientSideGoogleOAuthProvider'),
+  { ssr: false }
+);
 
 export const metadata = {
     title: "Notes.js",
@@ -8,9 +14,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
-            <Provider store={store}>
-                <body>{children}</body>
-            </Provider>
+            <body>
+                <ClientSideGoogleOAuthProvider>
+                    <ClientRoot>{children}</ClientRoot>
+                </ClientSideGoogleOAuthProvider>
+            </body>
         </html>
     );
 }
