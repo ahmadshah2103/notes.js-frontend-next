@@ -8,26 +8,32 @@ const initialState = {
     notes: { notes: [], currentNote: null, error: null, loading: false },
 };
 
+const isClient = typeof window !== 'undefined';
+
 const loadState = () => {
-    try {
-        const authState = JSON.parse(localStorage.getItem("auth"));
-        const notesState = JSON.parse(localStorage.getItem("notes"));
-        return {
-            auth: authState || initialState.auth,
-            notes: notesState || initialState.notes,
-        };
-    } catch (err) {
-        console.error("Error loading state from localStorage:", err);
-        return initialState;
+    if (isClient) {
+        try {
+            const serializedState = localStorage.getItem('state');
+            if (serializedState === null) {
+                return undefined;
+            }
+            return JSON.parse(serializedState);
+        } catch (err) {
+            console.error('Error loading state from localStorage:', err);
+            return undefined;
+        }
     }
+    return undefined;
 };
 
 const saveState = (state) => {
-    try {
-        localStorage.setItem("auth", JSON.stringify(state.auth));
-        localStorage.setItem("notes", JSON.stringify(state.notes));
-    } catch (err) {
-        console.error("Error saving state to localStorage:", err);
+    if (isClient) {
+        try {
+            const serializedState = JSON.stringify(state);
+            localStorage.setItem('state', serializedState);
+        } catch (err) {
+            console.error('Error saving state to localStorage:', err);
+        }
     }
 };
 
@@ -41,8 +47,10 @@ const store = configureStore({
         getDefaultMiddleware().concat(localStorageMiddleware),
 });
 
-store.subscribe(() => {
-    saveState(store.getState());
-});
+if (isClient) {
+    store.subscribe(() => {
+        saveState(store.getState());
+    });
+}
 
 export default store;

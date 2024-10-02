@@ -35,11 +35,12 @@ export const signUpUser = createAsyncThunk(
 
 export const googleSignInUser = createAsyncThunk(
     "auth/googleSignInUser",
-    async (tokenId, { rejectWithValue }) => {
+    async (accessToken, { rejectWithValue }) => {
         try {
-            const response = await googleSignIn(tokenId);
+            const response = await googleSignIn({accessToken});
             return response;
         } catch (error) {
+            console.error("Google Sign-In error:", error);
             return rejectWithValue(error.message);
         }
     }

@@ -1,4 +1,10 @@
 import ClientRoot from './ClientRoot';
+import dynamic from 'next/dynamic';
+
+const ClientSideGoogleOAuthProvider = dynamic(
+  () => import('../components/auth/ClientSideGoogleOAuthProvider'),
+  { ssr: false }
+);
 
 export const metadata = {
     title: "Notes.js",
@@ -9,7 +15,9 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body>
-                <ClientRoot>{children}</ClientRoot>
+                <ClientSideGoogleOAuthProvider>
+                    <ClientRoot>{children}</ClientRoot>
+                </ClientSideGoogleOAuthProvider>
             </body>
         </html>
     );
