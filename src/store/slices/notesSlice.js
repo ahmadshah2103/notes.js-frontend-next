@@ -13,9 +13,9 @@ import {
 
 export const fetchNotes = createAsyncThunk(
     "notes/fetchNotes",
-    async (userId, { rejectWithValue }) => {
+    async ({ userId, token }, { rejectWithValue }) => {
         try {
-            const response = await getNotes(userId);
+            const response = await getNotes(userId, token);
             return response;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -25,9 +25,9 @@ export const fetchNotes = createAsyncThunk(
 
 export const fetchNote = createAsyncThunk(
     "notes/fetchNote",
-    async ({ userId, noteId }, { rejectWithValue }) => {
+    async ({ userId, noteId, token }, { rejectWithValue }) => {
         try {
-            const response = await getNote(userId, noteId);
+            const response = await getNote(userId, noteId, token);
             return response;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -37,9 +37,9 @@ export const fetchNote = createAsyncThunk(
 
 export const addNote = createAsyncThunk(
     "notes/createNote",
-    async ({ userId, note }, { rejectWithValue }) => {
+    async ({ userId, note, token }, { rejectWithValue }) => {
         try {
-            const response = await createNoteService(userId, note);
+            const response = await createNote(userId, note, token);
             return response;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -49,9 +49,9 @@ export const addNote = createAsyncThunk(
 
 export const editNote = createAsyncThunk(
     "notes/updateNote",
-    async ({ userId, noteId, note }, { rejectWithValue }) => {
+    async ({ userId, noteId, note, token }, { rejectWithValue }) => {
         try {
-            const response = await updateNoteService(userId, noteId, note);
+            const response = await updateNote(userId, noteId, note, token);
             return response;
         } catch (error) {
             return rejectWithValue(error.message);
@@ -61,9 +61,9 @@ export const editNote = createAsyncThunk(
 
 export const removeNote = createAsyncThunk(
     "notes/deleteNote",
-    async ({ userId, noteId }, { rejectWithValue }) => {
+    async ({ userId, noteId, token }, { rejectWithValue }) => {
         try {
-            await deleteNoteService(userId, noteId);
+            await deleteNote(userId, noteId, token);
             return noteId;
         } catch (error) {
             return rejectWithValue(error.message);

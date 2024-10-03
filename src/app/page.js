@@ -13,14 +13,26 @@ export default function Home() {
     };
 
     return (
-        <div>
-            <h1>
-                {user ? `Hey ${user.name}, ` : "Hey there, "}welcome to Notes.js!
+        <div className="text-center">
+            <h1 className="text-4xl font-bold mb-8">
+                {user ? `Hey ${user.name}, ` : "Hey there, "}welcome to
+                Notes.js!
             </h1>
             {user ? (
-                <button onClick={handleSignOut}>Sign Out</button>
+                <div className="space-x-4">
+                    <div className="flex flex-col items-center space-y-4">
+                        <Link href="/notes" className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                            Go to Notes
+                        </Link>
+                        <button onClick={handleSignOut} className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
+                            Sign Out
+                        </button>
+                    </div>
+                </div>
             ) : (
-                <Link href="/auth/signin">Sign In</Link>
+                <Link href="/auth/signin" className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">
+                    Sign In
+                </Link>
             )}
         </div>
     );

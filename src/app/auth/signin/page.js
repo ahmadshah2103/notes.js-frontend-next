@@ -1,18 +1,14 @@
 "use client";
 
 import SignIn from "@/components/auth/SignIn";
-import GoogleSignIn from "@/components/auth/GoogleSignIn";
-import Link from "next/link";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { google } from "@/config";
+import Link from "next/link"
 
 export default function SignInPage() {
     return (
         <>
             <SignIn />
-            <GoogleSignIn />
-            <p>
-                Don't have an account? <Link href="/auth/signup">Sign Up</Link>
+            <p className="text-center mt-4 text-gray-600">
+                Don't have an account? <Link href="/auth/signup" className="text-blue-500 hover:text-blue-700">Sign Up</Link>
             </p>
         </>
     );
