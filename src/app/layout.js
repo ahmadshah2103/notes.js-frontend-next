@@ -1,5 +1,7 @@
+import './global.css';
 import ClientRoot from './ClientRoot';
 import dynamic from 'next/dynamic';
+import Navbar from '@/components/common/Navbar';
 
 const ClientSideGoogleOAuthProvider = dynamic(
   () => import('../components/auth/ClientSideGoogleOAuthProvider'),
@@ -16,7 +18,10 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <body>
                 <ClientSideGoogleOAuthProvider>
-                    <ClientRoot>{children}</ClientRoot>
+                    <ClientRoot>
+                        <Navbar />
+                        {children}
+                    </ClientRoot>
                 </ClientSideGoogleOAuthProvider>
             </body>
         </html>
